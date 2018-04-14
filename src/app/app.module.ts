@@ -6,6 +6,20 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+ 
+import { HttpModule } from '@angular/http';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { FirebaseProvider } from './../providers/firebase/firebase';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBdiBZnG71soLiaQod1hIlHhn5Azv65SKU",
+  authDomain: "raffles-reads.firebaseapp.com",
+  databaseURL: "https://raffles-reads.firebaseio.com",
+  projectId: "raffles-reads",
+  storageBucket: "raffles-reads.appspot.com",
+  messagingSenderId: "547104769444"
+};
 
 @NgModule({
   declarations: [
@@ -14,7 +28,10 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    IonicModule.forRoot(MyApp)  
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -24,6 +41,7 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
+    FirebaseProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
