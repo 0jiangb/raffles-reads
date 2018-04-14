@@ -9,8 +9,8 @@ import { HomePage } from '../pages/home/home';
  
 import { HttpModule } from '@angular/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireStorageModule} from 'angularfire2/storage';
 import { AngularFireModule } from 'angularfire2';
-import { FirebaseProvider } from './../providers/firebase/firebase';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBdiBZnG71soLiaQod1hIlHhn5Azv65SKU",
@@ -30,6 +30,7 @@ const firebaseConfig = {
     BrowserModule,
     HttpModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp)  
   ],
@@ -41,7 +42,6 @@ const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    FirebaseProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
