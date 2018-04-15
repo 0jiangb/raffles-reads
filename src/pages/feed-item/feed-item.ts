@@ -18,14 +18,15 @@ export class FeedItemPage {
     this.getCywww(this.feedItem);
   }
 
-  getCywww(feedItem: Object){
+  getCywww(feedItem: Object) {
     this.storage.ref(feedItem["access"])
       .getDownloadURL()
       .toPromise()
       .then(url => fetch(url))
       .then(response => response.text())
-      .then(data => this.text = data);
-    }
+      .then(data => this.text = data)
+      .catch(error => this.text = "Error: " + error.message_);
+  }
 
 }
 
