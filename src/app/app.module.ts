@@ -6,9 +6,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { FeedItemPage } from '../pages/feed-item/feed-item';
  
 import { HttpModule } from '@angular/http';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule} from 'angularfire2/storage';
 import { AngularFireModule } from 'angularfire2';
 
@@ -24,12 +25,13 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    FeedItemPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    AngularFireDatabaseModule,
+    AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp)  
@@ -37,7 +39,8 @@ const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    FeedItemPage
   ],
   providers: [
     StatusBar,
