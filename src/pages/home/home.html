@@ -9,6 +9,7 @@
 <ion-content>
   <ion-list>
     <ion-card *ngFor="let item of items">
+      <img ng-if="item.hasOwnProperty(imgSrc)" src="{{item.imgSrc}}">
       <ion-card-header>
         {{item.header}}
       </ion-card-header>
