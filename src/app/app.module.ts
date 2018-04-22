@@ -1,16 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 
 import { MyApp } from './app.component';
-import { FeedPageModule } from '../pages/feed/feed.module';
+import { AuthService } from '../services/auth.service';
+import { SignInPage } from '../pages/sign-in/sign-in';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBdiBZnG71soLiaQod1hIlHhn5Azv65SKU",
@@ -22,24 +25,24 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [MyApp],
+  declarations: [MyApp, SignInPage],
+  entryComponents: [MyApp, SignInPage],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp],
-
   imports: [
-    BrowserModule,
     HttpModule,
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
     AngularFirestoreModule,
     AngularFireStorageModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    IonicModule.forRoot(MyApp),
-
-    FeedPageModule
-  ], 
+    NgxErrorsModule,
+  ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthService
   ]
 })
 export class AppModule { }

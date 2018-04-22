@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { AngularFireStorage } from 'angularfire2/storage';
 
-import { CywwwItemPage } from '../cywww-item/cywww-item';
-
+@IonicPage()
 @Component({
   selector: 'page-feed',
   templateUrl: 'feed.html'
@@ -24,11 +22,11 @@ export class FeedPage {
     }];
   }
 
-
   openFull(feedItem: Object) {
     this.navCtrl.push("CywwwItemPage", {
       "feedItem": feedItem
-    })
+    });
   }
+
 }
 
