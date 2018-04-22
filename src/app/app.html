@@ -1,1 +1,23 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu id="leftMenu" [content]="content" type="overlay">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Raffles Reads</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list>
+            <ion-list-header *ngIf="auth.getEmail()">{{auth.getEmail()}}</ion-list-header>
+            <ion-item (click)="signOut()" *ngIf="auth.authenticated">
+                <ion-icon name="log-out" item-left></ion-icon>
+                Sign out
+            </ion-item>
+            <ion-item (click)="signIn()" *ngIf="!auth.authenticated">
+                <ion-icon name="log-in" item-left></ion-icon>
+                Sign in
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>
