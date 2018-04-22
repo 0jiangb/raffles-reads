@@ -3,9 +3,11 @@ import { App, MenuController, Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { Storage } from '@ionic/storage';
+
 import { AuthService } from '../services/auth.service';
 import { FeedPage } from '../pages/feed/feed';
-
+import { TutorialPage } from '../pages/tutorial/tutorial';
 @Component({
   templateUrl: 'app.html'
 })
@@ -21,7 +23,16 @@ export class MyApp {
     private menu: MenuController,
     private app: App,
     private auth: AuthService,
-  ) { }
+    public storage: Storage
+  ) {
+    this.storage.get('hasSeenTutorial')
+        .then((hasSeenTutorial) => {
+          if (hasSeenTutorial) {
+            this.rootPage = FeedPage;
+          } else {
+            this.rootPage = TutorialPage;
+          }
+        });}
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -40,5 +51,8 @@ export class MyApp {
     this.auth.signOut();
   }
 
-}
+  openTutorial() {
+    this.nav.setRoot(TutorialPage);
+  }
 
+}

@@ -1,0 +1,56 @@
+<ion-header no-border>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons end *ngIf="showSkip">
+      <button ion-button (click)="startApp()" color="primary">Skip</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)" pager>
+
+    <ion-slide>
+      <img src="assets/imgs/rilogo.png" class="slide-image"/>
+      <h2 class="slide-title">Welcome to <b>Raffles Reads!</b>
+      </h2>
+      <p>
+        <b>Raffles Reads</b> is an app made to encourage Rafflesians to read more english books.
+      </p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/cyw.png" class="slide-image"/>
+      <h2 class="slide-title" >Whats in Raffles Reads?</h2>
+      <p><b>Raffles Reads</b> has a huge database of Colour Your World with Words articles that you can read in your own time.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/rilogo.png" class="slide-image"/>
+      <h2 class="slide-title">Anything else?</h2>
+      <p><b>Raffles Reads</b> also automatically finds articles suited to your interests and displays them to you, so you dont have to spend time on news websites
+      searching articles of interest!</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/stackofbooks.png" class="slide-image"/>
+      <h2 class="slide-title">Wow! Amazing! Sugoi-desu! Any other marvellous features?</h2>
+      <p><b>Raffles Reads</b> also recommends books according to your interests!(of course, you have to borrow themselves)</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/rilogo.png" class="slide-image"/>
+      <h2 class="slide-title">Thats incredible! Any other prodigious features?</h2>
+      <p>Last but not least,<b>Raffles Reads</b> has a star readers.....</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/ica-slidebox-img-4.png" class="slide-image"/>
+      <h2 class="slide-title">Ready to use Raffles Reads?</h2>
+      <button ion-button icon-end large clear (click)="startApp()">
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>

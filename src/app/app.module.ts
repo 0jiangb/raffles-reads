@@ -9,10 +9,12 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { AuthService } from '../services/auth.service';
-import { FeedPageModule } from '../pages/feed/feed.module';
+import { FeedPage } from '../pages/feed/feed';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBdiBZnG71soLiaQod1hIlHhn5Azv65SKU",
@@ -24,8 +26,16 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [MyApp],
-  entryComponents: [MyApp],
+  declarations: [
+    MyApp,
+    FeedPage,
+    TutorialPage
+  ],
+  entryComponents: [
+    MyApp,
+    FeedPage,
+    TutorialPage
+],
   bootstrap: [IonicApp],
   imports: [
     HttpModule,
@@ -35,7 +45,7 @@ const firebaseConfig = {
     AngularFireStorageModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    FeedPageModule
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
