@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams } from 'ionic-angular';
 
 import { AngularFireStorage } from 'angularfire2/storage';
 
+@IonicPage()
 @Component({
-  selector: 'page-feed-item',
-  templateUrl: 'feed-item.html',
+  selector: 'page-cywww-item',
+  templateUrl: 'cywww-item.html',
 })
-export class FeedItemPage {
+export class CywwwItemPage {
 
   feedItem: Object;
   text: String;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: AngularFireStorage) {
+  constructor(public navParams: NavParams, private storage: AngularFireStorage) {
     this.feedItem = navParams.get("feedItem");
     this.getCywww(this.feedItem);
   }
@@ -25,7 +25,7 @@ export class FeedItemPage {
       .then(url => fetch(url))
       .then(response => response.text())
       .then(data => this.text = data)
-      .catch(error => this.text = "Error: " + error.message_);
+      .catch(error => this.text = "Error: " + error);
   }
 
 }
