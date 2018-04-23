@@ -8,12 +8,13 @@ import { Storage } from '@ionic/storage';
 import { AuthService } from '../services/auth.service';
 import { FeedPage } from '../pages/feed/feed';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
 
-  rootPage: any = FeedPage;
+  rootPage: any;
 
   @ViewChild(Nav) nav: Nav;
 
@@ -23,16 +24,18 @@ export class MyApp {
     private menu: MenuController,
     private app: App,
     private auth: AuthService,
-    public storage: Storage
+    private storage: Storage
   ) {
     this.storage.get('hasSeenTutorial')
-        .then((hasSeenTutorial) => {
-          if (hasSeenTutorial) {
-            this.rootPage = FeedPage;
-          } else {
-            this.rootPage = TutorialPage;
-          }
-        });}
+      .then((hasSeenTutorial) => {
+        if (hasSeenTutorial) {
+          this.rootPage = FeedPage;
+        } else {
+          this.rootPage = TutorialPage;
+        }
+        this.initializeApp();
+      });
+  }
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -52,7 +55,7 @@ export class MyApp {
   }
 
   openTutorial() {
-    this.nav.setRoot(TutorialPage);
+    this.nav.setRoot("TutorialPage");
   }
 
 }
