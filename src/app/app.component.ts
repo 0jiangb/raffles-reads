@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Storage } from '@ionic/storage';
-import { Observable } from 'rxjs/observable';
 
 import { PaginationService } from '../services/pagination.service';
 import { AuthService } from '../services/auth.service';
@@ -14,7 +13,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp implements OnInit {
+export class MyApp {
 
   rootPage: any;
 

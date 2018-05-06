@@ -1,4 +1,4 @@
-import { Injectable,OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -6,13 +6,15 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/take';
 
+// Options to reproduce firestore queries consistently
 interface QueryConfig {
-  path: string,
-  field: string,
-  limit?: number,
-  reverse?: boolean,
-  prepend?: boolean
+  path: string, // path to collection
+  field: string, // field to orderBy
+  limit?: number, // limit per query
+  reverse?: boolean, // reverse order?
+  prepend?: boolean // prepend to source?
 }
+
 
 @Injectable()
 export class PaginationService {
@@ -33,8 +35,7 @@ export class PaginationService {
   constructor(private afs: AngularFirestore) { }
 
   // Initial query sets options and defines the Observable
-  // passing opts will override the defaults
-  init(path: string, field: string, opts?: any) {
+  init(path, field, opts?) {
     this.query = {
       path,
       field,
@@ -101,7 +102,7 @@ export class PaginationService {
           return { ...data, doc }
         })
 
-        // If prepending, reverse the batch order
+        // If prepending, reverse array
         values = this.query.prepend ? values.reverse() : values
 
         // update source with new values, done loading
@@ -117,5 +118,13 @@ export class PaginationService {
     .subscribe()
 
   }
+
+
+  // Reset the page
+  reset() {
+    this._data.next([])
+    this._done.next(false)
+  }
+
 
 }

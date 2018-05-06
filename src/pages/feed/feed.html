@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let feedItem of feedItems" (click)="openFull(feedItem)">
+  <ion-card *ngFor="let feedItem of page.data | async" (click)="openFull(feedItem)">
     <img ng-if="feedItem.hasOwnProperty(imgSrc)" src="{{feedItem.imgSrc}}">
     <ion-card-header>
       {{feedItem.access}}

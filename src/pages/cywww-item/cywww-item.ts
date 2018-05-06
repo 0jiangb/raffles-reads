@@ -25,7 +25,7 @@ export class CywwwItemPage {
       .then(url => fetch(url))
       .then(response => response.text())
       .then(data => this.text = data)
-      .catch(error => this.text = "Error: " + error);
+      .catch(error => console.log(error));
   }
 
 }
