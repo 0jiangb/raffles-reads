@@ -1,10 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { App, MenuController, Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs/observable';
 
+import { PaginationService } from '../services/pagination.service';
 import { AuthService } from '../services/auth.service';
 import { FeedPage } from '../pages/feed/feed';
 import { TutorialPage } from '../pages/tutorial/tutorial';
@@ -12,7 +14,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnInit {
 
   rootPage: any;
 
