@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
 import { PaginationService } from '../../services/pagination.service';
@@ -17,7 +17,7 @@ export class FeedPage {
     this.page.init('cywww', 'header', {reverse: false, prepend: false});
   }
 
-  openFull(feedItem: Object) {
+  openFull(feedItem) {
     this.navCtrl.push("CywwwItemPage", {
       "feedItem": feedItem
     });
@@ -27,6 +27,5 @@ export class FeedPage {
     this.page.more();
     infiniteScroll.complete();
   }
-
 
 }

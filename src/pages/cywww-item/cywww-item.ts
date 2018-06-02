@@ -10,22 +10,19 @@ import { AngularFireStorage } from 'angularfire2/storage';
 })
 export class CywwwItemPage {
 
-  feedItem: Object;
-  text: String;
+  text: Promise<string>;
 
   constructor(public navParams: NavParams, private storage: AngularFireStorage) {
-    this.feedItem = navParams.get("feedItem");
-    this.getCywww(this.feedItem);
+    this.text = this.getCywww(this.navParams.get("feedItem"));
   }
 
-  getCywww(feedItem: Object) {
-    this.storage.ref(feedItem["access"])
+  getCywww(feedItem): Promise<string> {
+    return this.storage.ref(feedItem["access"])
       .getDownloadURL()
       .toPromise()
       .then(url => fetch(url))
       .then(response => response.text())
-      .then(data => this.text = data)
-      .catch(error => console.log(error));
+      .catch(error => "Error:" + error.message);
   }
 
 }
