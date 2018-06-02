@@ -13,6 +13,7 @@ import { AngularFireModule } from 'angularfire2';
 
 import { MyApp } from './app.component';
 import { AuthService } from '../services/auth.service';
+import { PaginationService } from '../services/pagination.service';
 import { TutorialPageModule } from '../pages/tutorial/tutorial.module';
 import { FeedPageModule } from '../pages/feed/feed.module';
 
@@ -45,7 +46,8 @@ const firebaseConfig = {
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthService
+    AuthService,
+    PaginationService
   ]
 })
 export class AppModule { }

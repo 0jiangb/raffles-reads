@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { PaginationService } from '../../services/pagination.service';
 
 @IonicPage()
 @Component({
@@ -10,22 +10,22 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 })
 export class FeedPage {
 
-  feedItems: Array<Object>;
-
-  constructor(public navCtrl: NavController) {
-    this.feedItems = [{
-      "header": "Adapted from I Know Why the Caged Bird Sings by Maya Angelou",
-      "shortForm": "hello",
-      "imgSrc": "https://sms.math.nus.edu.sg/PrizePresentation/PhotoSMO2016/SMOJunior/content/images/large/2016_SMS_APPC_small-189.jpg",
-      "type": "cywww",
-      "access": "Adapted from I Know Why the Caged Bird Sings by Maya Angelou.html"
-    }];
+  constructor(
+    public navCtrl: NavController,
+    public page: PaginationService
+  ) {
+    this.page.init('cywww', 'header', {reverse: false, prepend: false});
   }
 
-  openFull(feedItem: Object) {
+  openFull(feedItem) {
     this.navCtrl.push("CywwwItemPage", {
       "feedItem": feedItem
     });
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page.more();
+    infiniteScroll.complete();
   }
 
 }
