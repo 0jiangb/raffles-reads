@@ -8,7 +8,16 @@ import { Storage } from '@ionic/storage';
 import { PaginationService } from '../services/pagination.service';
 import { AuthService } from '../services/auth.service';
 import { FeedPage } from '../pages/feed/feed';
+import { NewsPage } from '../pages/news/news';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+
+export interface PageInterface {
+  title: string;
+  name: string;
+  component: any;
+  icon: string;
+  index?: number;
+}
 
 @Component({
   templateUrl: 'app.html'
@@ -18,6 +27,11 @@ export class MyApp {
   rootPage: any;
 
   @ViewChild(Nav) nav: Nav;
+
+  appPages: PageInterface[] = [
+    { title: 'Feed', name: 'TabsPage', component: FeedPage, index: 0, icon: 'calendar' },
+    { title: 'News', name: 'TabsPage', component: NewsPage, index: 1, icon: 'contacts' }
+  ];
 
   constructor(
     private platform: Platform,
@@ -57,6 +71,10 @@ export class MyApp {
 
   openTutorial() {
     this.nav.setRoot("TutorialPage");
+  }
+
+  openPage(page: PageInterface) {
+    this.nav.setRoot(page.component);
   }
 
 }
