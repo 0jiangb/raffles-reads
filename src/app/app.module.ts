@@ -5,6 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
@@ -16,6 +17,7 @@ import { AuthService } from '../services/auth.service';
 import { PaginationService } from '../services/pagination.service';
 import { TutorialPageModule } from '../pages/tutorial/tutorial.module';
 import { FeedPageModule } from '../pages/feed/feed.module';
+import { NewsPageModule } from '../pages/news/news.module';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBdiBZnG71soLiaQod1hIlHhn5Azv65SKU",
@@ -40,14 +42,16 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     IonicStorageModule.forRoot(),
     TutorialPageModule,
-    FeedPageModule
+    FeedPageModule,
+    NewsPageModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
-    PaginationService
+    PaginationService,
+    InAppBrowser
   ]
 })
 export class AppModule { }

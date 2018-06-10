@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      News
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngFor="let news of newsList" (click)="openWebpage(news.url)">
+    <img ng-if="feedItem.hasOwnProperty(imgSrc)" src="'url('+news.urlToImage+')'">
+    <ion-card-header>
+      {{news.title}}
+    </ion-card-header>
+    <ion-card-content>
+      {{news.description}}
+    </ion-card-content>
+  </ion-card>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
