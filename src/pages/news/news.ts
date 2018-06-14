@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 
 import { PaginationService } from '../../services/pagination.service';
 import { NewsService } from '../../services/news.service';
@@ -58,7 +58,7 @@ export class NewsPage implements OnInit {
     });
   }
 
-  openWebpage(url: String) {
+  openWebpage(url: string) {
 
     const options: InAppBrowserOptions = {
       clearcache: 'yes',

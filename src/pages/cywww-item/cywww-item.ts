@@ -10,10 +10,14 @@ import { AngularFireStorage } from 'angularfire2/storage';
 })
 export class CywwwItemPage {
 
-  text: Promise<string>;
+  articleText: Promise<string>;
+  fontSize: number = 1.7;
 
-  constructor(public navParams: NavParams, private storage: AngularFireStorage) {
-    this.text = this.getCywww(this.navParams.get("feedItem"));
+  constructor(
+    public navParams: NavParams,
+    private storage: AngularFireStorage
+  ) {
+    this.articleText = this.getCywww(this.navParams.get("feedItem"));
   }
 
   getCywww(feedItem): Promise<string> {
@@ -23,6 +27,10 @@ export class CywwwItemPage {
       .then(url => fetch(url))
       .then(response => response.text())
       .catch(error => "Error:" + error.message);
+  }
+
+  changeFontSize(change: number) {
+    this.fontSize *= change;
   }
 
 }

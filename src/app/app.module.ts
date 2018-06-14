@@ -43,7 +43,7 @@ const firebaseConfig = {
     IonicStorageModule.forRoot(),
     TutorialPageModule,
     FeedPageModule,
-    NewsPageModule
+    NewsPageModule,
   ],
   providers: [
     StatusBar,

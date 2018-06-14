@@ -10,10 +10,10 @@
   <ion-card *ngFor="let feedItem of page.data | async" (click)="openFull(feedItem)">
     <img ng-if="feedItem.hasOwnProperty(imgSrc)" src="{{feedItem.imgSrc}}">
     <ion-card-header>
-      {{feedItem.access}}
+      {{feedItem.header}}
     </ion-card-header>
     <ion-card-content>
-      {{feedItem.access}}
+      {{feedItem.shortForm}}
     </ion-card-content>
   </ion-card>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
