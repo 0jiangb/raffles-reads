@@ -43,7 +43,6 @@ export class NewsPage {
     this.storage.set('keywords', JSON.stringify(this.keywords));
     this.newsService.reset();
     this.newsService.init(this.keywords, 'df20978da5994f7c9880e7017771b3e6');
-    console.log(this.keywords);
     refresher.complete()
   }
 

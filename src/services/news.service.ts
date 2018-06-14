@@ -49,6 +49,11 @@ export class NewsService {
 
     // Initial query sets options and defines the Observable
     init(keywords: Array<string>, apiKey: string) {
+
+        if (keywords.length == 0) {
+            this._done.next(true);
+            return;
+        }
         this.keywords = keywords;
         this.apiKey = apiKey;
 
@@ -111,6 +116,7 @@ export class NewsService {
 
     // Reset the page
     reset() {
+        this.keywords = [];
         this.cursor = {};
         this._data.next([]);
         this._done.next(false);
