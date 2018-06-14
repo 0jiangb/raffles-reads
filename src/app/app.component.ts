@@ -10,7 +10,6 @@ import { AuthService } from '../services/auth.service';
 import { FeedPage } from '../pages/feed/feed';
 import { NewsPage } from '../pages/news/news';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-import { PreferencesPage } from '../pages/preferences/preferences';
 
 export interface PageInterface {
   title: string;
@@ -32,7 +31,6 @@ export class MyApp {
   appPages: PageInterface[] = [
     { title: 'Feed', name: 'TabsPage', component: FeedPage, index: 0, icon: 'albums' },
     { title: 'News', name: 'TabsPage', component: NewsPage, index: 1, icon: 'globe' },
-    { title: 'Preferences', name: 'PreferencesPage', component: PreferencesPage, index: 2, icon: 'settings'}
   ];
 
   constructor(

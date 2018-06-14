@@ -3,10 +3,20 @@
     <ion-title>
       News
     </ion-title>
+    <ion-select [(ngModel)]='keywords' multiple='true'>
+      <ion-option>Trump</ion-option>
+      <ion-option>Football</ion-option>
+      <ion-option>Cricket</ion-option>
+    </ion-select>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-card *ngFor="let news of newsService.data | async" (click)="openWebpage(news.url)">
     <img [src]="news.urlToImage">
     <ion-card-header>
@@ -17,9 +27,7 @@
     </ion-card-content>
   </ion-card>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-  <ion-infinite-scroll-content
-    loadingSpinner="bubbles"
-    loadingText="Loading more data...">></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
 </ion-content>

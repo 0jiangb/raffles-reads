@@ -13,14 +13,15 @@ import { NewsService } from '../../services/news.service';
 
 export class NewsPage {
 
+  keywords: Array<string> = [];
+
   constructor(
     private newsService: NewsService,
     private inAppBrowser: InAppBrowser,
     private storage: Storage
   ) {
-    let keywords = [];
-    this.storage.get('keywords').then(x => keywords = x).catch(() => { return });
-    this.newsService.init(keywords, 'df20978da5994f7c9880e7017771b3e6');
+    this.storage.get('keywords').then(x => this.keywords = JSON.parse(x)).catch(() => { return });
+    this.newsService.init(this.keywords, 'df20978da5994f7c9880e7017771b3e6');
   }
 
   doInfinite(infiniteScroll) {
@@ -29,16 +30,24 @@ export class NewsPage {
   }
 
   openWebpage(url: string) {
-
     const options: InAppBrowserOptions = {
       clearcache: 'yes',
       location: 'yes',
       footer: 'yes',
       closebuttoncaption: 'Close'
     }
-
     const browser = this.inAppBrowser.create(url, '_self', options)
-
   }
 
+  doRefresh(refresher) {
+    this.storage.set('keywords', JSON.stringify(this.keywords));
+    this.newsService.reset();
+    this.newsService.init(this.keywords, 'df20978da5994f7c9880e7017771b3e6');
+    console.log(this.keywords);
+    refresher.complete()
+  }
+
+  ionViewWillUnload() {
+    this.storage.set('keywords', JSON.stringify(this.keywords));
+  }
 }
