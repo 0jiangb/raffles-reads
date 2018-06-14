@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { zip } from 'rxjs/observable/zip'
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/scan';
 import 'rxjs/add/operator/take';
@@ -9,73 +10,112 @@ import 'rxjs/add/operator/take';
 @Injectable()
 export class NewsService {
 
-  // Source data
-  private _done = new BehaviorSubject(false);
-  private _loading = new BehaviorSubject(false);
-  private _data = new BehaviorSubject([]);
+    // Source data
+    private _done = new BehaviorSubject(false);
+    private _loading = new BehaviorSubject(false);
+    private _data = new BehaviorSubject([]);
 
-  private params: any;
+    private apiKey: string;
+    private cursor: Object;
+    private keywords: Array<string>;
+    private sources: Array<string> = [
+        'abc-news',
+        'ars-technica',
+        'associated-press',
+        'bbc-news',
+        'bbc-sport',
+        'bloomberg',
+        'business-insider',
+        'cnbc',
+        'cnn',
+        'ign',
+        'mashable',
+        'wired',
+        'google-news',
+        'fortune',
+        'financial-times',
+        'entertainment-weekly',
+        'espn',
+        'engadget',
+        'the-wall-street-journal'
+    ];
 
-  // Observable data
-  data: Observable<any>;
-  done: Observable<boolean> = this._done.asObservable();
-  loading: Observable<boolean> = this._loading.asObservable();
-  
-  constructor(private http: HttpClient) { }
+    // Observable data
+    data: Observable<any>;
+    done: Observable<boolean> = this._done.asObservable();
+    loading: Observable<boolean> = this._loading.asObservable();
 
-  // Initial query sets options and defines the Observable
-  init(category?, q?) {
+    constructor(private http: HttpClient) { }
 
-    this.params = {};
-    this.params["apiKey"] = 'df20978da5994f7c9880e7017771b3e6';
-    this.params["country"] = "sg";
-    if (category) {
-        this.params["category"] = category;
+    // Initial query sets options and defines the Observable
+    init(keywords: Array<string>, apiKey: string) {
+        this.keywords = keywords;
+        this.apiKey = apiKey;
+
+        const first = zip(...keywords.map(keyword => this.http.get(
+            "https://newsapi.org/v2/top-headlines",
+            { "params": { "sources": this.sources.toString(), "q": keyword, "apiKey": this.apiKey } }
+        )));
+        this.mapAndUpdate(first)
+        this.data = this._data.asObservable()
+            .scan((acc, val) => {
+                return acc.concat(val);
+            });
     }
-    if (q) {
-        this.params["q"] = q;
-    }
-    this.params["page"] = 1;
-    const first = this.http.get("https://newsapi.org/v2/top-headlines", {"params": this.params});
-    this.mapAndUpdate(first)
-    // Create the observable array for consumption in components
-    this.data = this._data.asObservable()
-        .scan( (acc, val) => {
-          return acc.concat(val)
-        })
-  }
 
 
-  // Retrieves additional data from firestore
-  more() {
-    this.params["page"] += 1;
-    const more = this.http.get("https://newsapi.org/v2/top-headlines", {"params": this.params});
-    this.mapAndUpdate(more)
-  }
-
-
-  // Maps the snapshot to usable format the updates source
-  private mapAndUpdate(res: Observable<object>) {
-
-    if (this._done.value || this._loading.value) { return };
-
-    // loading
-    this._loading.next(true)
-    return res.subscribe(data => {
-        this._data.next(data["articles"])
-        this._loading.next(false)
-
-        if (this.params["pages"] * 20 >= data["totalResults"]) {
-            this._done.next(true)
+    more() {
+        const more = zip(this.keywords.map(keyword => {
+            this.cursor[keyword] ? this.cursor[keyword] + 1 : 2;
+            return this.http.get(
+                "https://newsapi.org/v2/top-headlines",
+                { "params": { "sources": this.sources.toString(), "q": keyword, "page": this.cursor[keyword], "apiKey": this.apiKey } }
+            );
         }
-    })
-  }
+        ));
+        this.mapAndUpdate(more);
+    }
 
 
-  // Reset the page
-  reset() {
-    this._data.next([])
-    this._done.next(false)
-  }
+    private mapAndUpdate(res: Observable<Array<object>>) {
+
+        if (this._done.value || this._loading.value) { return };
+        this._loading.next(true);
+
+        return res.subscribe(arr => {
+            console.log("b2");
+            arr.filter(res => res['status'] != 'error');
+            if (arr.length == 0) {
+                this._loading.next(false);
+                this._done.next(true);
+                console.log("done");
+            }
+            const articles = arr.map(res => res['articles']);
+            let longest = 0;
+            articles.forEach(function (xs: Array<string>) {
+                if (xs.length > longest) {
+                    longest = xs.length;
+                }
+            });
+            let ret = [];
+            for (let i = 0; i < longest; ++i) {
+                articles.forEach(function (xs: Array<string>) {
+                    if (xs.length > i) {
+                        ret.push(xs[i]);
+                    }
+                });
+            }
+            this._data.next(ret);
+            this._loading.next(false);
+        });
+    }
+
+
+    // Reset the page
+    reset() {
+        this.cursor = {};
+        this._data.next([]);
+        this._done.next(false);
+    }
 
 }

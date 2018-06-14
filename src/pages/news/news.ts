@@ -3,7 +3,6 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 
 import { NewsService } from '../../services/news.service';
-import { News } from '../../interfaces/news.interface';
 
 @IonicPage()
 @Component({
@@ -11,29 +10,13 @@ import { News } from '../../interfaces/news.interface';
   templateUrl: 'news.html'
 })
 
-
 export class NewsPage {
-
-  menuOpen: boolean = false;
-  isLoading: boolean = false;
-
-  categories = [
-    {name: 'general'},
-    {name: 'business'},
-    {name: 'entertainment'},
-    {name: 'health'},
-    {name: 'science'},
-    {name: 'sports'},
-    {name: 'technology'},
-  ];
-
-  selectedCategory: string = 'general';
 
   constructor(
     private newsService: NewsService,
     private inAppBrowser: InAppBrowser
   ) { 
-    this.newsService.init(this.selectedCategory);
+    this.newsService.init(["Trump"], 'df20978da5994f7c9880e7017771b3e6');
   }
 
   doInfinite(infiniteScroll) {

@@ -8,7 +8,7 @@
 
 <ion-content padding>
   <ion-card *ngFor="let news of newsService.data | async" (click)="openWebpage(news.url)">
-    <img  src="news.urlToImage">
+    <img [src]="news.urlToImage">
     <ion-card-header>
       {{news.title}}
     </ion-card-header>
