@@ -14,7 +14,7 @@ export class FeedPage {
     public navCtrl: NavController,
     public page: PaginationService
   ) {
-    this.page.init('cywww', 'header', {reverse: false, prepend: false});
+    this.page.init('cywww', 'time', {reverse: false, prepend: false});
   }
 
   openFull(feedItem) {

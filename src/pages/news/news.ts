@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 
-import { PaginationService } from '../../services/pagination.service';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news.interface';
 
@@ -13,7 +12,7 @@ import { News } from '../../interfaces/news.interface';
 })
 
 
-export class NewsPage implements OnInit {
+export class NewsPage {
 
   menuOpen: boolean = false;
   isLoading: boolean = false;
@@ -29,33 +28,17 @@ export class NewsPage implements OnInit {
   ];
 
   selectedCategory: string = 'general';
-  newsList: Array<News> = [];
-   @Input('news') news:News;
 
   constructor(
     private newsService: NewsService,
     private inAppBrowser: InAppBrowser
-  ) { }
-
-  ngOnInit() {
-    this.getNews(this.selectedCategory);
+  ) { 
+    this.newsService.init(this.selectedCategory);
   }
 
-  getNews(category: string){
-    this.isLoading = true;
-    // When clicking sidenav category, change selectedCategory to the clicked category
-    if(category != this.selectedCategory) {
-      this.selectedCategory = category;
-      this.menuOpen = false;
-    }
-
-    this.newsService.getNews(category).then(response=>{
-      this.isLoading = false;
-      this.newsList = response.articles;
-    },error=>{
-      alert(error);
-      this.isLoading = false;
-    });
+  doInfinite(infiniteScroll) {
+    this.newsService.more();
+    infiniteScroll.complete();
   }
 
   openWebpage(url: string) {
