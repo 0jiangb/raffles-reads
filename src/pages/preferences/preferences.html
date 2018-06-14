@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Preferences
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+  <ion-label>Keyword preferences</ion-label>
+  <ion-select [(ngModel)]="keywords" multiple="true">
+    <ion-option ionSelect="">Soccer</ion-option>
+    <ion-option>Softball</ion-option>
+    <ion-option>Cricket</ion-option>
+    <ion-option>Trump</ion-option>
+    <ion-option>Science</ion-option>
+    <ion-option>Games</ion-option>
+  </ion-select>
+  </ion-item>
+
+  <ion-buttons>
+    <button ion-button round (click)='update()' class='update-button'>Update</button>
+  </ion-buttons>
+
+</ion-content>
