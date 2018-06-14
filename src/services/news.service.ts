@@ -16,7 +16,7 @@ export class NewsService {
     private _data = new BehaviorSubject([]);
 
     private apiKey: string;
-    private cursor: Object;
+    private cursor: Object = {};
     private keywords: Array<string>;
     private sources: Array<string> = [
         'abc-news',
@@ -65,8 +65,8 @@ export class NewsService {
 
 
     more() {
-        const more = zip(this.keywords.map(keyword => {
-            this.cursor[keyword] ? this.cursor[keyword] + 1 : 2;
+        const more = zip(...this.keywords.map(keyword => {
+            this.cursor[keyword] = (this.cursor[keyword] + 1) || 2;
             return this.http.get(
                 "https://newsapi.org/v2/top-headlines",
                 { "params": { "sources": this.sources.toString(), "q": keyword, "page": this.cursor[keyword], "apiKey": this.apiKey } }
@@ -83,12 +83,10 @@ export class NewsService {
         this._loading.next(true);
 
         return res.subscribe(arr => {
-            console.log("b2");
             arr.filter(res => res['status'] != 'error');
             if (arr.length == 0) {
                 this._loading.next(false);
                 this._done.next(true);
-                console.log("done");
             }
             const articles = arr.map(res => res['articles']);
             let longest = 0;
