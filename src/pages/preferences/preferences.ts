@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
-
-
-import { PaginationService } from '../../services/pagination.service';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -11,33 +9,17 @@ import { PaginationService } from '../../services/pagination.service';
 })
 export class PreferencesPage {
 
+  keywords: Array<string>
+
   constructor(
     public navCtrl: NavController,
     private storage: Storage,
-    // private toastCtrl: ToastController
   ) {
-    this.preferences = this.keywords;
-    this.storage.set('preferences','true');
+    this.storage.set('keywords', JSON.stringify(this.keywords));
   }
 
   update() {
-    this.preferences=this.keywords;
-    this.storage.set('preferences','true');
-    // presentToast();
+    this.storage.set('keywords', JSON.stringify(this.keywords));
   }
-
-//   presentToast() {
-//   let toast = this.toastCtrl.create({
-//     message: 'Updated successfully',
-//     duration: 3000,
-//     position: 'top'
-//   });
-//
-//   toast.onDidDismiss(() => {
-//     console.log('Dismissed toast');
-//   });
-//
-//   toast.present();
-// }
 
 }

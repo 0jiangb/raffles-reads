@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
+import { Storage } from '@ionic/storage';
 
 import { NewsService } from '../../services/news.service';
 
@@ -14,9 +15,12 @@ export class NewsPage {
 
   constructor(
     private newsService: NewsService,
-    private inAppBrowser: InAppBrowser
-  ) { 
-    this.newsService.init(["Trump"], 'df20978da5994f7c9880e7017771b3e6');
+    private inAppBrowser: InAppBrowser,
+    private storage: Storage
+  ) {
+    let keywords = [];
+    this.storage.get('keywords').then(x => keywords = x).catch(() => { return });
+    this.newsService.init(keywords, 'df20978da5994f7c9880e7017771b3e6');
   }
 
   doInfinite(infiniteScroll) {
