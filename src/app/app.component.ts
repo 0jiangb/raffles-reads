@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 import { FeedPage } from '../pages/feed/feed';
 import { NewsPage } from '../pages/news/news';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { SignInPage } from '../pages/sign-in/sign-in';
 
 export interface PageInterface {
   title: string;
@@ -41,16 +42,24 @@ export class MyApp {
     private auth: AuthService,
     private storage: Storage
   ) {
-    this.storage.get('hasSeenTutorial')
-      .then((hasSeenTutorial) => {
-        if (hasSeenTutorial) {
-          this.rootPage = FeedPage;
-        } else {
-          this.rootPage = TutorialPage;
-        }
-        this.initializeApp();
-      });
-  }
+    this.auth.afAuth.authState.subscribe(
+      user => { if (user) {
+        this.storage.get('hasSeenTutorial')
+        .then((hasSeenTutorial) => {
+          if (hasSeenTutorial) {
+            this.rootPage = FeedPage;
+          } else {
+            this.rootPage = TutorialPage;
+          }
+        });
+      } else {
+        this.rootPage = SignInPage;
+      }},
+      () => { this.rootPage = SignInPage; }
+    );
+    this.initializeApp();
+
+}
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -78,3 +87,5 @@ export class MyApp {
   }
 
 }
+
+//Contributors: Bowen Jiang, Zhao Yiheng, Zack Xu Zhuo, Xan Ng, Tan Wee Kean

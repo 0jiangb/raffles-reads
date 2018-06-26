@@ -20,14 +20,21 @@ export class NewsService {
     private keywords: Array<string>;
     private sources: Array<string> = [
         'abc-news',
+        'abc-news-au',
         'ars-technica',
         'associated-press',
+        'australian-financial-review',
+        'axios',
         'bbc-news',
         'bbc-sport',
+        'bleacher-report',
         'bloomberg',
         'business-insider',
+        'buzzfeed',
+        'cbs-news',
         'cnbc',
         'cnn',
+        'daily-mail',
         'ign',
         'mashable',
         'wired',
@@ -37,7 +44,17 @@ export class NewsService {
         'entertainment-weekly',
         'espn',
         'engadget',
-        'the-wall-street-journal'
+        'the-wall-street-journal',
+        'four-four-two',
+        'fox-news',
+        'fox-sports',
+        'medical-news-today',
+        'metro',
+        'mirror',
+        'msnbc',
+        'national-geographic',
+        'breitbart-news',
+
     ];
 
     // Observable data

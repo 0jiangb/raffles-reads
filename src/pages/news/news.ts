@@ -5,6 +5,10 @@ import { Storage } from '@ionic/storage';
 
 import { NewsService } from '../../services/news.service';
 
+const flatten = list => list.reduce(
+  (a,b) => a.concat(Array.isArray(b)  ? flatten(b): b), []
+);
+
 @IonicPage()
 @Component({
   selector: 'page-news',
@@ -21,7 +25,9 @@ export class NewsPage {
     private storage: Storage
   ) {
     this.storage.get('keywords').then(x => this.keywords = JSON.parse(x)).catch(() => { return });
-    this.newsService.init(this.keywords, 'df20978da5994f7c9880e7017771b3e6');
+    console.log(this.keywords);
+    this.newsService.init(flatten(this.keywords.map(str => str.split(','))), 'df20978da5994f7c9880e7017771b3e6');
+    console.log(this.keywords);
   }
 
   doInfinite(infiniteScroll) {
@@ -42,7 +48,9 @@ export class NewsPage {
   doRefresh(refresher) {
     this.storage.set('keywords', JSON.stringify(this.keywords));
     this.newsService.reset();
-    this.newsService.init(this.keywords, 'df20978da5994f7c9880e7017771b3e6');
+    console.log(this.keywords);
+    this.newsService.init(flatten(this.keywords.map(str => str.split(','))), 'df20978da5994f7c9880e7017771b3e6');
+    console.log(this.keywords);
     refresher.complete()
   }
 

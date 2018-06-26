@@ -15,6 +15,10 @@
 
 			<div ngxErrors="email" #emailErrors="ngxErrors">
 				<div [ngxError]="['email', 'required']" [when]="['touched']">Email must be valid</div>
+				<div *ngIf="
+				form.get('email').errors &&
+				form.get('email').dirty &&
+				form.get('email').errors.validRI">Not RI email</div>
 			</div>
 
 			<ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched']) }">

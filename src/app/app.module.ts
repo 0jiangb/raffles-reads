@@ -19,6 +19,7 @@ import { PaginationService } from '../services/pagination.service';
 import { TutorialPageModule } from '../pages/tutorial/tutorial.module';
 import { FeedPageModule } from '../pages/feed/feed.module';
 import { NewsPageModule } from '../pages/news/news.module';
+import { SignInPageModule } from '../pages/sign-in/sign-in.module';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBdiBZnG71soLiaQod1hIlHhn5Azv65SKU",
@@ -46,6 +47,7 @@ const firebaseConfig = {
     TutorialPageModule,
     FeedPageModule,
     NewsPageModule,
+    SignInPageModule
   ],
   providers: [
     StatusBar,

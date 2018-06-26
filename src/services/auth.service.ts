@@ -21,7 +21,22 @@ export class AuthService {
     }
 
     signUp(credentials) {
-        return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password);
+        return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password).then(
+          (success) => {
+            let user:any = firebase.auth().currentUser;
+            user.sendEmailVerification().then(
+              (success) => {console.log("email sent")}
+            ).catch(
+              (err) => {
+                console.log("email error"+err);
+              }
+            )
+
+          }).catch(
+            (err) => {
+              console.log("email error"+err);
+            }
+          )
     }
 
     get authenticated(): boolean {
@@ -35,5 +50,15 @@ export class AuthService {
     signOut(): Promise<void> {
         return this.afAuth.auth.signOut();
     }
+
+    isVerified(): boolean {
+      let user:any = firebase.auth().currentUser;
+      return user.emailVerified;
+    }
+
+
+
+
+
 
 }

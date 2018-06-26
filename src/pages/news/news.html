@@ -1,12 +1,28 @@
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
       News
     </ion-title>
     <ion-select [(ngModel)]='keywords' multiple='true'>
-      <ion-option>Trump</ion-option>
-      <ion-option>Football</ion-option>
-      <ion-option>Cricket</ion-option>
+      <ion-option value="Trump,Kim Jong Un,Brexit,Current affairs,What’s happening,World leaders">World News</ion-option>
+      <ion-option value="European Union,EU,ASEAN,Lee Hsien Loong,Lee Kuan Yew,Goh Chok Tong,Janil Puthucheary,Ong Ye Kung,Tharman Shanmugaratnam,Heng Swee Keat,Halimah Yacob,Grace Fu,Sylvia Lim,Lawrence Wong,Vivian Balakrishnan,Shanmugam,Goh Keng Swee,Khaw Boon Wan,Parliament,White House,Obama,Trump,Kim Jong-Un,Hillary Clinton,Activist,Cabinet,Candidate,Checks and balances,Coalition,Congress,Conservative,Constituent,Constitution,Democrat,Republican,Policies,Government,PAP,WP,SDP,People’s Action Party, Workers’ Party">Politics</ion-option>
+      <ion-option value="Botany,Zoology,Oceanography,Statistics,Sociology,Physics,Meteorology,Ecology,Biology,Geology,Earth Science,Computer science,organic chemistry,analytical chemistry, physical chemistry,inorganic chemistry,biochemistry">
+        Science</ion-option>
+      <ion-option value="Badminton,Table tennis,Shooting,Archery,Water polo,Swimming,Basketball,Track and field,Cross country,Ice hockey, Hockey, Golf, Tennis, Judo,Taekwondo, Soccer, Rugby, Netball, Volleyball, Rock climbing,E-sports,World Cup,Cricket,Shooting,Sailing,Wingsuit flying, Throwball, Wallyball,Ringball,Slamball,Handball,Tchoukball,Softball,Football,Gymnastics, Frisbee,Ga-ga ball,Pole climbing,Ice climbing,Freestyle BMX,BMX,Karate ,Kickboxing,Pool, Billiard,Beach volleyball,Golf,Goalball,Torball,Kayaking,Canoeing,Skiing,Bobsleigh,Diving, Weightlifting,Formula racing,Formula 1 ,F1">
+        Sports</ion-option>
+      <ion-option value="Mobile,Handphone,Tablet,Handphone games,Personal mobility devices,E-scooters,Google, Elon Musk, Apple, Tesla, Samsung">
+        Technology</ion-option>
+      <ion-option value="E-sports,Board games,Mobile games,Rocket League, CSGO, Counterstrike, Counter-strike, Global Offensive,PUBG,Player Unknown Battlegrounds,Overwatch,Hearthstone,Clash Royale, Mobile Legends,League of Legends,Fortnite, DOTA,Rules of Survival,Scrabble,Cluedo,Risk">
+        Games</ion-option>
+      <ion-option value="Kopitiam,Hawker,Gourmet,Michelin star,Gordon Ramsay,Top Chef,Indian cuisine,Chinese cuisine,Grill,Wine,Food,Coffee,Juicer,KitchenAid,Kettle,Cookware,Toaster,Chilli Crab,Chicken rice,Bak Kut Teh,Pork Ribs Soup,Wanton Mee,Fried Carrot Cake,Dim Sum,Kaya Toast,Chilli crab,Black pepper crab,Laksa,Curry Fish Head,Masterchef,Murtabak,Prata,Zi Char,Chinatown Complex Food Centre,Hong Lim Market Food Centre,Old Airport Road Hawker Centre,Tiong Bahru Food Centre,Geylang Serai Food Centre,Chomp Chomp Food Centre">
+        Food</ion-option>
+      <ion-option value="Youtube,Mnet,Music bank,K-pop,BTS,EXO,Red Velvet,Black pink,(G)-idle,AOA,I.O.I,Super Junior,Lee Hi,IU,Lee Ji Eun,Big Bang,Epik High,GOT7,MONSTA X,NCT,SHINee,WANNA ONE,HyunA,Dreamcatcher,EXID,f(x),MAMAMOO,Girls’ Generation,Miss A,MOMOLAND,OH MY GIRL,Wonder Girls,Classical Music,Romantic Music,20th century music,Symphony,Concerto,Chamber music,Remix,Parody,Chinese Orchestra,Pipa,Yangqin,Guzheng,Liuqin,Ruan,Dizi,Sheng,Suona,Percussion,Cello,Double Bass,Erhu, Huqin,Tanbo,Chuiguan,hobby,interest,gardening,reading,cooking,pokemon,sleeping">
+        Lifestyle</ion-option>
+      <ion-option value="Raffles institution,stamford raffles,william farquhar,frederick yeo,chan poh meng,RI,RJC,RI(JC)">
+        RI</ion-option>
     </ion-select>
   </ion-navbar>
 </ion-header>
