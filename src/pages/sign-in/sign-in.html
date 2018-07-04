@@ -31,9 +31,9 @@
       <button ion-button full type="submit" [disabled]="!signInForm.valid">Log in</button>
       <div class="signIn-footer">
         <p>
-          <a href="#">Forgot password?</a>
+          <a *ngIf="!resetPassword && signInForm.value.email" (click)="sendResetEmail()">Reset password for {{signInForm.value.email}}</a>
+          <p *ngIf="resetPassword" class="text-success">Check your email to reset your password.</p>
           If you're a new user, please sign up.
-        </p>
       </div>
 
         <button ion-button icon-left block clear (click)="signUp()">

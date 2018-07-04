@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SignInPage {
 
+  resetPassword: boolean = false; 
   signInForm: FormGroup;
   signInError: string;
 
@@ -68,4 +69,11 @@ export class SignInPage {
     });
   }
 
+  sendResetEmail() {
+    this.auth.resetPassword(this.signInForm.value.email)
+      .then(() => this.resetPassword = true)
+      .catch(error => {
+       console.log(error);
+      })
+  }
 }

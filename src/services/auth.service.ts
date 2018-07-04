@@ -55,9 +55,10 @@ export class AuthService {
       return this.user.emailVerified;
     }
 
-
-
-
-
+    resetPassword(email: string) {
+      return this.afAuth.auth.sendPasswordResetEmail(email)
+        .then(() => console.log('sent Password Reset Email: ' + email))
+        .catch((error) => console.log(error))
+    }
 
 }
