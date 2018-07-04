@@ -36,7 +36,7 @@ export class FeedPage {
   }
 
   doInfinite(infiniteScroll) {
-    if (!auth.isVerified()) {
+    if (!this.auth.isVerified()) {
       let toast = this.toastCtrl.create({
         message: 'You need to verify your email to use this feature',
         position: 'top'

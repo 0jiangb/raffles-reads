@@ -52,8 +52,7 @@ export class AuthService {
     }
 
     isVerified(): boolean {
-      let user:any = firebase.auth().currentUser;
-      return user.emailVerified;
+      return this.user.emailVerified;
     }
 
 
